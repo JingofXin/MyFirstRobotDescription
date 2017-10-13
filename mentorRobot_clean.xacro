@@ -85,6 +85,7 @@
 				<geometry>
 					<mesh filename = "${model_dae}"/>
 				</geometry>
+                                <origin xyz = "${model_xyz}" rpy = "0 0 0"/>
 			</collision>
 			<inertial>
 				<mass value = "${model_mess}"/>
