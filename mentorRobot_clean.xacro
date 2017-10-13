@@ -1,0 +1,176 @@
+<?xml version = "1.0"?>
+<robot xmlns:xacro = "http://www.ros.org/wiki/xacro" name = "Luna_clean">
+<!--Define-->
+<!--================================Property=======================================================-->
+
+	<xacro:property name = "body_data" value = "package://urdf_tutorial/meshes/MainBody.DAE"/>	
+        <xacro:property name = "body_xyz" value = "0 0 0"/>
+        <xacro:property name = "body_mess" value = "82.2134"/>
+	<xacro:property name = "body_ixx" value = "5.9878"/>	<xacro:property name = "body_izz" value = "12.7380"/>
+	<xacro:property name = "body_ixz" value = "-0.4769"/>	<xacro:property name = "body_iyz" value = "0"/>
+        <xacro:property name = "body_ixy" value = "0"/>		<xacro:property name = "body_iyy" value = "11.0462"/>
+
+	<xacro:property name = "camera_data" value = "package://urdf_tutorial/meshes/Camera.DAE"/>
+        <xacro:property name = "camera_xyz" value = "0 0 -0.52839"/>
+        <xacro:property name = "camera_mess" value = "2.1408"/>
+        <xacro:property name = "camera_ixx" value = "0.0252"/>   <xacro:property name = "camera_izz" value = "0.0396"/>
+        <xacro:property name = "camera_ixz" value = "0.0002"/>   <xacro:property name = "camera_iyz" value = "-0.0001"/>
+        <xacro:property name = "camera_ixy" value = "0"/>	 <xacro:property name = "camera_iyy" value = "0.0251"/>
+	<xacro:property name = "camera_position" value = "0 0 0.19333"/>
+        <xacro:property name = "camera_axis" value = "0 1 0"/>
+
+        <xacro:property name = "neck_data" value = "package://urdf_tutorial/meshes/CameraTurn.DAE"/>
+        <xacro:property name = "neck_xyz" value = "0 0 -0.33506"/>
+        <xacro:property name = "neck_mess" value = "3.2666"/>
+        <xacro:property name = "neck_ixx" value = "0.0394"/>   <xacro:property name = "neck_izz" value = "0.0309"/>
+        <xacro:property name = "neck_ixz" value = "0"/>        <xacro:property name = "neck_iyz" value = "0"/>
+        <xacro:property name = "neck_ixy" value = "0"/>        <xacro:property name = "neck_iyy" value = "0.0381"/>
+        <xacro:property name = "neck_position" value = "0 0 0.33506"/>
+        <xacro:property name = "neck_axis" value = "0 0 1"/>
+
+        <xacro:property name = "rh_leg_data" value = "package://urdf_tutorial/meshes/WheelTuR.DAE"/>
+        <xacro:property name = "rb_leg_data" value = "package://urdf_tutorial/meshes/WheelTuR2.DAE"/>
+        <xacro:property name = "lh_leg_data" value = "package://urdf_tutorial/meshes/WheelTuL.DAE"/>
+        <xacro:property name = "lb_leg_data" value = "package://urdf_tutorial/meshes/WheelTuL2.DAE"/>
+        <xacro:property name = "leg_abs_x" value = "0.41809"/>	<xacro:property name = "leg_abs_y" value = "0.1955"/>	
+	<xacro:property name = "leg_abs_z" value = "0.00511"/>
+        <xacro:property name = "leg_mess" value = "0.2978"/>
+        <xacro:property name = "leg_ixx" value = "0.003"/>    <xacro:property name = "leg_izz" value = "0.0003"/>
+        <xacro:property name = "leg_ixz" value = "0"/>        <xacro:property name = "leg_iyz" value = "0"/>
+        <xacro:property name = "leg_ixy" value = "0"/>        <xacro:property name = "leg_iyy" value = "0.003"/>
+        <xacro:property name = "leg_axis" value = "0 0 1"/>
+
+        <xacro:property name = "rh_wheel_data" value = "package://urdf_tutorial/meshes/WheelR.DAE"/>
+        <xacro:property name = "rb_wheel_data" value = "package://urdf_tutorial/meshes/WheelR2.DAE"/>
+        <xacro:property name = "lh_wheel_data" value = "package://urdf_tutorial/meshes/WheelL.DAE"/>
+        <xacro:property name = "lb_wheel_data" value = "package://urdf_tutorial/meshes/WheelL2.DAE"/>
+        <xacro:property name = "wheel_abs_x" value = "0.41809"/> <xacro:property name = "wheel_abs_y" value = "0.3365"/>
+        <xacro:property name = "wheel_abs_z" value = "0.29111"/>
+        <xacro:property name = "wheel_mess" value = "2.7971"/>
+        <xacro:property name = "wheel_ixx" value = "0.0354"/>        <xacro:property name = "wheel_izz" value = "0.0354"/>
+        <xacro:property name = "wheel_ixz" value = "0"/>        <xacro:property name = "wheel_iyz" value = "0"/>
+        <xacro:property name = "wheel_ixy" value = "0"/>        <xacro:property name = "wheel_iyy" value = "0.0638"/>
+        <xacro:property name = "wheel_axis" value = "0 1 0"/>
+
+	<xacro:property name = "rh_leg_xyz" value = "${-leg_abs_x} ${-leg_abs_y} ${leg_abs_z}"/>
+        <xacro:property name = "rh_leg_position" value = "${leg_abs_x} ${leg_abs_y} ${-leg_abs_z}"/>
+        <xacro:property name = "rb_leg_xyz" value = "${leg_abs_x} ${-leg_abs_y} ${leg_abs_z}"/>
+        <xacro:property name = "rb_leg_position" value = "${-leg_abs_x} ${leg_abs_y} ${-leg_abs_z}"/>
+        <xacro:property name = "lh_leg_xyz" value = "${-leg_abs_x} ${leg_abs_y} ${leg_abs_z}"/>
+        <xacro:property name = "lh_leg_position" value = "${leg_abs_x} ${-leg_abs_y} ${-leg_abs_z}"/>
+        <xacro:property name = "lb_leg_xyz" value = "${leg_abs_x} ${leg_abs_y} ${leg_abs_z}"/>
+        <xacro:property name = "lb_leg_position" value = "${-leg_abs_x} ${-leg_abs_y} ${-leg_abs_z}"/>
+
+
+        <xacro:property name = "rh_wheel_xyz" value = "${-wheel_abs_x} ${-wheel_abs_y} ${wheel_abs_z}"/>
+        <xacro:property name = "rh_wheel_position" value = "${(wheel_abs_x-leg_abs_x)} ${(wheel_abs_y-leg_abs_y)} ${-(wheel_abs_z-leg_abs_z)}"/>
+        <xacro:property name = "rb_wheel_xyz" value = "${wheel_abs_x} ${-wheel_abs_y} ${wheel_abs_z}"/>
+        <xacro:property name = "rb_wheel_position" value = "${-(wheel_abs_x-leg_abs_x)} ${(wheel_abs_y-leg_abs_y)} ${-(wheel_abs_z-leg_abs_z)}"/>
+        <xacro:property name = "lh_wheel_xyz" value = "${-wheel_abs_x} ${wheel_abs_y} ${wheel_abs_z}"/>
+        <xacro:property name = "lh_wheel_position" value = "${(wheel_abs_x-leg_abs_x)} ${-(wheel_abs_y-leg_abs_y)} ${-(wheel_abs_z-leg_abs_z)}"/>
+        <xacro:property name = "lb_wheel_xyz" value = "${wheel_abs_x} ${wheel_abs_y} ${wheel_abs_z}"/>
+        <xacro:property name = "lb_wheel_position" value = "${-(wheel_abs_x-leg_abs_x)} ${-(wheel_abs_y-leg_abs_y)} ${-(wheel_abs_z-leg_abs_z)}"/>
+
+<!--================================Macro==========================================================-->
+		
+	<xacro:macro name = "define_link" params = "name model_dae model_xyz model_mess *model_inertia">
+		<link name = "${name}">
+			<visual>
+				<geometry>
+					<mesh filename = "${model_dae}"/>
+				</geometry>
+				<origin xyz = "${model_xyz}" rpy = "0 0 0"/>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename = "${model_dae}"/>
+				</geometry>
+			</collision>
+			<inertial>
+				<mass value = "${model_mess}"/>
+				<xacro:insert_block name = "model_inertia"/>
+			</inertial>
+		</link>	
+	</xacro:macro>
+
+	<xacro:macro name = "define_limit_joint" params = "name type parent child position axis *limit">
+		<joint name = "${name}" type = "${type}">
+			<parent link = "${parent}"/>
+			<child link = "${child}"/>
+			<origin xyz = "${position}"/>	
+			<axis xyz = "${axis}"/>
+			<xacro:insert_block name = "limit"/>
+		</joint>
+	</xacro:macro>
+
+        <xacro:macro name = "define_joint" params = "name type parent child position axis">
+                <joint name = "${name}" type = "${type}">
+                        <parent link = "${parent}"/>
+                        <child link = "${child}"/>
+                        <origin xyz = "${position}"/>
+                        <axis xyz = "${axis}"/>
+                </joint>
+        </xacro:macro>
+
+<!--Useing-->
+<!--================================Instaniation==========================================================-->
+
+	<xacro:define_link name = "body" model_dae = "${body_data}" model_xyz = "${body_xyz}" model_mess = "${body_mess}">
+		<inertia ixx =  "${body_ixx}" ixz = "${body_ixz}" ixy = "${body_ixy}" izz = "${body_izz}" iyz = "${body_iyz}" iyy = "${body_iyy}"/>
+	</xacro:define_link>
+
+        <xacro:define_link name = "neck" model_dae = "${neck_data}" model_xyz = "${neck_xyz}" model_mess = "${neck_mess}">
+                <inertia ixx =  "${neck_ixx}" ixz = "${neck_ixz}" ixy = "${neck_ixy}" izz = "${neck_izz}" iyz = "${neck_iyz}" iyy = "${neck_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_joint name = "CameraTurn" type = "continuous" parent = "body" child = "neck" position ="${neck_position}" axis = "${neck_axis}"/>
+	
+        <xacro:define_link name = "camera" model_dae = "${camera_data}" model_xyz = "${camera_xyz}" model_mess = "${camera_mess}">
+                <inertia ixx =  "${camera_ixx}" ixz = "${camera_ixz}" ixy = "${camera_ixy}" izz = "${camera_izz}" iyz = "${camera_iyz}" iyy = "${camera_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_limit_joint name = "CameraUpDown" type = "revolute" parent = "neck" child = "camera" position ="${camera_position}" axis = "${camera_axis}">
+                <limit effort = "1000" lower = "-1.571" upper = "1.571" velocity = "0.5"/>
+        </xacro:define_limit_joint>
+
+
+	<xacro:define_link name = "rh_leg" model_dae = "${rh_leg_data}" model_xyz = "${rh_leg_xyz}" model_mess = "${leg_mess}">
+                <inertia ixx =  "${leg_ixx}" ixz = "${leg_ixz}" ixy = "${leg_ixy}" izz = "${leg_izz}" iyz = "${leg_iyz}" iyy = "${leg_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_joint name = "RH_LegTurn" type = "continuous" parent = "body" child = "rh_leg" position ="${rh_leg_position}" axis = "${leg_axis}"/>
+
+        <xacro:define_link name = "rh_wheel" model_dae = "${rh_wheel_data}" model_xyz = "${rh_wheel_xyz}" model_mess = "${wheel_mess}">
+                <inertia ixx =  "${wheel_ixx}" ixz = "${wheel_ixz}" ixy = "${wheel_ixy}" izz = "${wheel_izz}" iyz = "${wheel_iyz}" iyy = "${wheel_iyy}"/>
+        </xacro:define_link>
+	<xacro:define_joint name = "RH_WheelGo" type = "continuous" parent = "rh_leg" child = "rh_wheel" position ="${rh_wheel_position}" axis = "${wheel_axis}"/>
+
+        <xacro:define_link name = "rb_leg" model_dae = "${rb_leg_data}" model_xyz = "${rb_leg_xyz}" model_mess = "${leg_mess}">
+                <inertia ixx =  "${leg_ixx}" ixz = "${leg_ixz}" ixy = "${leg_ixy}" izz = "${leg_izz}" iyz = "${leg_iyz}" iyy = "${leg_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_joint name = "RB_LegTurn" type = "continuous" parent = "body" child = "rb_leg" position ="${rb_leg_position}" axis = "${leg_axis}"/>
+
+        <xacro:define_link name = "rb_wheel" model_dae = "${rb_wheel_data}" model_xyz = "${rb_wheel_xyz}" model_mess = "${wheel_mess}">
+                <inertia ixx =  "${wheel_ixx}" ixz = "${wheel_ixz}" ixy = "${wheel_ixy}" izz = "${wheel_izz}" iyz = "${wheel_iyz}" iyy = "${wheel_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_joint name = "RB_WheelGo" type = "continuous" parent = "rb_leg" child = "rb_wheel" position ="${rb_wheel_position}" axis = "${wheel_axis}"/>
+
+	<xacro:define_link name = "lh_leg" model_dae = "${lh_leg_data}" model_xyz = "${lh_leg_xyz}" model_mess = "${leg_mess}">
+                <inertia ixx =  "${leg_ixx}" ixz = "${leg_ixz}" ixy = "${leg_ixy}" izz = "${leg_izz}" iyz = "${leg_iyz}" iyy = "${leg_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_joint name = "LH_LegTurn" type = "continuous" parent = "body" child = "lh_leg" position ="${lh_leg_position}" axis = "${leg_axis}"/>
+
+        <xacro:define_link name = "lh_wheel" model_dae = "${lh_wheel_data}" model_xyz = "${lh_wheel_xyz}" model_mess = "${wheel_mess}">
+                <inertia ixx =  "${wheel_ixx}" ixz = "${wheel_ixz}" ixy = "${wheel_ixy}" izz = "${wheel_izz}" iyz = "${wheel_iyz}" iyy = "${wheel_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_joint name = "LH_WheelGo" type = "continuous" parent = "lh_leg" child = "lh_wheel" position ="${lh_wheel_position}" axis = "${wheel_axis}"/>
+
+	<xacro:define_link name = "lb_leg" model_dae = "${lb_leg_data}" model_xyz = "${lb_leg_xyz}" model_mess = "${leg_mess}">
+                <inertia ixx =  "${leg_ixx}" ixz = "${leg_ixz}" ixy = "${leg_ixy}" izz = "${leg_izz}" iyz = "${leg_iyz}" iyy = "${leg_iyy}"/>
+        </xacro:define_link>
+	<xacro:define_joint name = "LB_LegTurn" type = "continuous" parent = "body" child = "lb_leg" position ="${lb_leg_position}" axis = "${leg_axis}"/>
+
+        <xacro:define_link name = "lb_wheel" model_dae = "${lb_wheel_data}" model_xyz = "${lb_wheel_xyz}" model_mess = "${wheel_mess}">
+                <inertia ixx =  "${wheel_ixx}" ixz = "${wheel_ixz}" ixy = "${wheel_ixy}" izz = "${wheel_izz}" iyz = "${wheel_iyz}" iyy = "${wheel_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_joint name = "LB_WheelGo" type = "continuous" parent = "lb_leg" child = "lb_wheel" position ="${lb_wheel_position}" axis = "${wheel_axis}"/>
+
+
+</robot>
