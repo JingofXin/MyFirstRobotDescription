@@ -1,0 +1,287 @@
+<?xml version = "1.0"?>
+<robot name = "Luna">
+	<link name = "base_body">
+		<visual>
+			<origin rpy = "0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<mesh filename = "package://urdf_tutorial/meshes/MainBody.DAE"/>
+			</geometry>
+		</visual>
+		<collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/MainBody.DAE"/>
+                        </geometry>
+		</collision>
+		<inertial>
+			<mass value = "82.2134"/>
+			<inertia ixx = "5.9878" ixz = "-0.4769" ixy = "0" izz = "12.7380" iyz = "0" iyy = "11.0462"/>
+		</inertial>
+	</link>
+        <link name = "camera">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="0 0 -0.52839"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/Camera.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/Camera.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "2.1408"/>
+                        <inertia ixx = "0.0252" ixz = "0.0002" ixy = "0" izz = "0.0396" iyz = "-0.0001" iyy = "0.0251"/>
+                </inertial>
+        </link>
+
+        <link name = "cameraturn">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="0 0 -0.33506"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/CameraTurn.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/CameraTurn.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "3.2666"/>
+                        <inertia ixx = "0.0394" ixz = "0" ixy = "0" izz = "0.0309" iyz = "0" iyy = "0.0381"/>
+                </inertial>
+        </link>
+
+
+        <joint name = "cameratur_camera" type = "revolute">
+                <parent link = "cameraturn"/>
+		<child link = "camera"/>
+                <origin  xyz="0 0 0.19333"/>
+		<axis xyz = "0 1 0 "/>
+		<limit effort = "1000" lower = "-1.571" upper = "1.571" velocity = "0.5"/>
+        </joint>
+
+        <joint name = "base_cameraturn" type = "continuous">
+                <parent link = "base_body"/>
+                <child link = "cameraturn"/>
+                <origin  xyz="0 0 0.33506"/>
+		<origin rpy = "0 0 0"/>
+                <axis xyz = "0 0 1 "/>
+        </joint>
+
+
+<!--=========================Wheel==========================================================-->
+<!--wheelR1-->
+        <link name = "r1wheelturn">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="-0.41809 -0.1955 0.00511"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelTuR.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelTuR.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "0.2978"/>
+                        <inertia ixx = "0.003" ixz = "0" ixy = "0" izz = "0.0003" iyz = "0" iyy = "0.003"/>
+                </inertial>
+        </link>
+        <joint name = "base_r1wheelturn" type = "continuous">
+                <parent link = "base_body"/>
+                <child link = "r1wheelturn"/>
+                <origin  xyz="0.41809 0.1955 -0.00511"/>
+                <axis xyz = "0 0 1 "/>
+        </joint>
+
+        <link name = "r1wheelgo">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="-0.41809 -0.3365 0.29111"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelR.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelR.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "2.7971"/>
+                        <inertia ixx = "0.0354" ixz = "0" ixy = "0" izz = "0.0354" iyz = "0" iyy = "0.0638"/>
+                </inertial>
+        </link>
+        <joint name = "base_r1wheelgo" type = "continuous">
+                <parent link = "r1wheelturn"/>
+                <child link = "r1wheelgo"/>
+                <origin  xyz="0 0.141 -0.286"/>
+		<axis xyz = "0 1 0"/>
+        </joint>
+
+<!--wheelL1-->
+        <link name = "l1wheelturn">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="-0.41809 0.1955 0.00511"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelTuL.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelTuL.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "0.2978"/>
+                        <inertia ixx = "0.003" ixz = "0" ixy = "0" izz = "0.0003" iyz = "0" iyy = "0.003"/>
+                </inertial>
+        </link>
+        <joint name = "base_l1wheelturn" type = "continuous">
+                <parent link = "base_body"/>
+                <child link = "l1wheelturn"/>
+                <origin  xyz="0.41809 -0.1955 -0.00511"/>
+                <axis xyz = "0 0 1 "/>
+        </joint>
+
+        <link name = "l1wheelgo">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="-0.41809 0.3365 0.29111"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelL.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelL.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "2.7971"/>
+                        <inertia ixx = "0.0354" ixz = "0" ixy = "0" izz = "0.0354" iyz = "0" iyy = "0.0638"/>
+                </inertial>
+        </link>
+        <joint name = "base_l1wheelgo" type = "continuous">
+                <parent link = "l1wheelturn"/>
+                <child link = "l1wheelgo"/>
+                <origin  xyz="0 -0.141 -0.286"/>
+                <axis xyz = "0 1 0"/>
+        </joint>
+
+<!--wheelR2-->
+        <link name = "r2wheelturn">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="0.41809 -0.1955 0.00511"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelTuR2.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelTuR2.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "0.2978"/>
+                        <inertia ixx = "0.003" ixz = "0" ixy = "0" izz = "0.0003" iyz = "0" iyy = "0.003"/>
+                </inertial>
+        </link>
+        <joint name = "base_r2wheelturn" type = "continuous">
+                <parent link = "base_body"/>
+                <child link = "r2wheelturn"/>
+                <origin  xyz="-0.41809 0.1955 -0.00511"/>
+                <axis xyz = "0 0 1 "/>
+        </joint>
+
+        <link name = "r2wheelgo">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="0.41809 -0.3365 0.29111"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelR2.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelR2.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "2.7971"/>
+                        <inertia ixx = "0.0354" ixz = "0" ixy = "0" izz = "0.0354" iyz = "0" iyy = "0.0638"/>
+                </inertial>
+        </link>
+        <joint name = "base_r2wheelgo" type = "continuous">
+                <parent link = "r2wheelturn"/>
+                <child link = "r2wheelgo"/>
+                <origin  xyz="0 0.141 -0.286"/>
+                <axis xyz = "0 1 0"/>
+        </joint>
+
+<!--wheelL2-->
+        <link name = "l2wheelturn">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="0.41809 0.1955 0.00511"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelTuL2.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelTuL2.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "0.2978"/>
+                        <inertia ixx = "0.003" ixz = "0" ixy = "0" izz = "0.0003" iyz = "0" iyy = "0.003"/>
+                </inertial>
+        </link>
+        <joint name = "base_l2wheelturn" type = "continuous">
+                <parent link = "base_body"/>
+                <child link = "l2wheelturn"/>
+                <origin  xyz="-0.41809 -0.1955 -0.00511"/>
+                <axis xyz = "0 0 1 "/>
+        </joint>
+
+        <link name = "l2wheelgo">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="0.41809 0.3365 0.29111"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelL2.DAE"/>
+                        </geometry>
+                </visual>
+                <collision>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelL2.DAE"/>
+                        </geometry>
+                </collision>
+                <inertial>
+                        <mass value = "2.7971"/>
+                        <inertia ixx = "0.0354" ixz = "0" ixy = "0" izz = "0.0354" iyz = "0" iyy = "0.0638"/>
+                </inertial>
+        </link>
+        <joint name = "base_l2wheelgo" type = "continuous">
+                <parent link = "l2wheelturn"/>
+                <child link = "l2wheelgo"/>
+                <origin  xyz="0 -0.141 -0.286"/>
+                <axis xyz = "0 1 0"/>
+        </joint>
+
+<!--
+	<link name = "r1wheelgo">
+                <visual>
+                        <origin rpy = "0 0 0" xyz="-0.41809 -0.1955 0.29111"/>
+                        <geometry>
+                                <mesh filename = "package://urdf_tutorial/meshes/WheelGoR.DAE"/>
+                        </geometry>
+                </visual>
+        </link>
+        <joint name = "base_r1wheelgo" type = "fixed">
+                <parent link = "r1wheelturn"/>
+                <child link = "r1wheelgo"/>
+                <origin  xyz="0 0 -0.286"/>
+        </joint>
+-->
+
+</robot>
