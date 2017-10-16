@@ -28,6 +28,25 @@
         <xacro:property name = "neck_position" value = "0 0 0.33506"/>
         <xacro:property name = "neck_axis" value = "0 0 1"/>
 
+        <xacro:property name = "laser_data" value = "package://urdf_tutorial/meshes/3DLaser.DAE"/>
+        <xacro:property name = "laser_xyz" value = "-0.513063 0 -0.557158"/>
+        <xacro:property name = "laser_mess" value = "1e-5"/>
+        <xacro:property name = "laser_ixx" value = "1e-6"/>   <xacro:property name = "laser_izz" value = "1e-6"/>
+        <xacro:property name = "laser_ixz" value = "0"/>        <xacro:property name = "laser_iyz" value = "0"/>
+        <xacro:property name = "laser_ixy" value = "0"/>        <xacro:property name = "laser_iyy" value = "1e-6"/>
+        <xacro:property name = "laser_position" value = "0.513063 0 0.557158"/>
+
+        <xacro:property name = "right_eye_data" value = "package://urdf_tutorial/meshes/RightEye.DAE"/>
+        <xacro:property name = "left_eye_data" value = "package://urdf_tutorial/meshes/LeftEye.DAE"/>
+        <xacro:property name = "right_eye_xyz" value = "-0.0906 -0.4 -0.771774"/>
+        <xacro:property name = "left_eye_xyz" value = "-0.0906 0.4 -0.771774"/>
+        <xacro:property name = "eye_mess" value = "1e-5"/>
+        <xacro:property name = "eye_ixx" value = "1e-6"/>   <xacro:property name = "eye_izz" value = "1e-6"/>
+        <xacro:property name = "eye_ixz" value = "0"/>        <xacro:property name = "eye_iyz" value = "0"/>
+        <xacro:property name = "eye_ixy" value = "0"/>        <xacro:property name = "eye_iyy" value = "1e-6"/>
+        <xacro:property name = "right_eye_position" value = "0.0906 0.4 0.243388"/>
+        <xacro:property name = "left_eye_position" value = "0.0906 -0.4 0.243388"/>
+
         <xacro:property name = "rh_leg_data" value = "package://urdf_tutorial/meshes/WheelTuR.DAE"/>
         <xacro:property name = "rb_leg_data" value = "package://urdf_tutorial/meshes/WheelTuR2.DAE"/>
         <xacro:property name = "lh_leg_data" value = "package://urdf_tutorial/meshes/WheelTuL.DAE"/>
@@ -113,8 +132,19 @@
                 </joint>
         </xacro:macro>
 
+        <xacro:macro name = "define_fixed_joint" params = "name type parent child position">
+                <joint name = "${name}" type = "${type}">
+                        <parent link = "${parent}"/>
+                        <child link = "${child}"/>
+                        <origin xyz = "${position}"/>
+                </joint>
+        </xacro:macro>
+
+
 <!--Useing-->
 <!--================================Instaniation==========================================================-->
+
+	<xacro:include filename = "$(find urdf_tutorial)/urdf/robot.gazebo"/>
 
 	<xacro:define_link name = "body" model_dae = "${body_data}" model_xyz = "${body_xyz}" model_mess = "${body_mess}">
 		<inertia ixx =  "${body_ixx}" ixz = "${body_ixz}" ixy = "${body_ixy}" izz = "${body_izz}" iyz = "${body_iyz}" iyy = "${body_iyy}"/>
@@ -131,6 +161,23 @@
         <xacro:define_limit_joint name = "CameraUpDown" type = "revolute" parent = "neck" child = "camera" position ="${camera_position}" axis = "${camera_axis}">
                 <limit effort = "1000" lower = "-1.571" upper = "1.571" velocity = "0.5"/>
         </xacro:define_limit_joint>
+
+        <xacro:define_link name = "hokuyo_link" model_dae = "${laser_data}" model_xyz = "${laser_xyz}" model_mess = "${laser_mess}">
+                <inertia ixx =  "${laser_ixx}" ixz = "${laser_ixz}" ixy = "${laser_ixy}" izz = "${laser_izz}" iyz = "${laser_iyz}" iyy = "${laser_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_fixed_joint name = "Laserfixed" type = "fixed" parent = "body" child = "hokuyo_link" position ="${laser_position}"/>
+
+        <xacro:define_link name = "camera1_link" model_dae = "${right_eye_data}" model_xyz = "${right_eye_xyz}" model_mess = "${eye_mess}">
+                <inertia ixx =  "${eye_ixx}" ixz = "${eye_ixz}" ixy = "${eye_ixy}" izz = "${eye_izz}" iyz = "${eye_iyz}" iyy = "${eye_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_fixed_joint name = "RightEyefixed" type = "fixed" parent = "camera" child = "camera1_link" position ="${right_eye_position}"/>
+
+        <xacro:define_link name = "camera2_link" model_dae = "${left_eye_data}" model_xyz = "${left_eye_xyz}" model_mess = "${eye_mess}">
+                <inertia ixx =  "${eye_ixx}" ixz = "${eye_ixz}" ixy = "${eye_ixy}" izz = "${eye_izz}" iyz = "${eye_iyz}" iyy = "${eye_iyy}"/>
+        </xacro:define_link>
+        <xacro:define_fixed_joint name = "LeftEyefixed" type = "fixed" parent = "camera" child = "camera2_link" position ="${left_eye_position}"/>
+
+
 
 
 	<xacro:define_link name = "rh_leg" model_dae = "${rh_leg_data}" model_xyz = "${rh_leg_xyz}" model_mess = "${leg_mess}">
